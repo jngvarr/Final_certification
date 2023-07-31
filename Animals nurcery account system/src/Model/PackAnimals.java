@@ -1,24 +1,25 @@
 package Model;
 
-public abstract class PackAnimals extends Animals{
+public abstract class PackAnimals extends Animals {
 
-    public PackAnimals(String type) {
-        super(type+"-P");
+    public PackAnimals() {
+        ID = ID + "-P";
     }
 }
+
 enum PackAnimalType {
     H, // horses - лошади
     C, // camels - верблюды
     D; // donkeys - ослы
 
-    public static PetType getType(String type) {
+    public static PackAnimalType getType(String type) {
         switch (type) {
             case "верблюды":
-                return PetType.C;
+                return PackAnimalType.C;
             case "лошади":
-                return PetType.H;
+                return PackAnimalType.H;
             case "ослы":
-                return PetType.D;
+                return PackAnimalType.D;
         }
         return null;
     }

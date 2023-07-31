@@ -2,19 +2,19 @@ package Model;
 
 import java.time.LocalDate;
 
-public  class Animals {
+public abstract class Animals {
     static {
         Animals.number = 0;
     }
 
     protected static int number;
     protected String ID;
-    private static AnimalsType type;
+//    private static AnimalsType type;
     protected String name;
     protected LocalDate dayOfBirth;
     protected String commands;
 
-    public Animals(String type) {
+    public Animals() {
         this.ID = String.format("#%s", ++Animals.number);
     }
 

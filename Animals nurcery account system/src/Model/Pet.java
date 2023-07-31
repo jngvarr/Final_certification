@@ -1,11 +1,12 @@
 package Model;
 
 public abstract class Pet extends Animals {
-    private static PetType type;
 
-    public Pet(String type) {
-        super(type + "-H");
+
+    public Pet() {
+        this.ID = super.ID + "-H";
     }
+
 }
 
 enum PetType {
