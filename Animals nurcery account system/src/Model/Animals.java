@@ -9,7 +9,7 @@ public abstract class Animals {
 
     protected static int number;
     protected String ID;
-//    private static AnimalsType type;
+    //    private static AnimalsType type;
     protected String name;
     protected LocalDate dayOfBirth;
     protected String commands;
@@ -20,8 +20,22 @@ public abstract class Animals {
 
     @Override
     public String toString() {
-        return ID ;
+        return ID;
     }
 }
 
+public enum AnimalType {
+    PACK,
+    HOME;
+
+    public static AnimalType getType(String type) {
+        switch (type) {
+            case "домашние":
+                return AnimalType.HOME;
+            case "вьючные":
+                return AnimalType.PACK;
+        }
+        return null;
+    }
+}
 
