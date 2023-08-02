@@ -1,18 +1,16 @@
 package Model;
 
-import java.time.LocalDate;
-
 public class Dogs extends Pet {
 
     public Dogs() {
         this.ID = super.ID+ "-" + PetType.D;
     }
 
-    public Dogs(String datum, String datum1, String datum2) {
-        this.ID = super.ID+ "-" + PetType.D;
-        this.name=datum;
-        this.dayOfBirth = datum1;
-        this.commands = datum2;
+    public Dogs(String name, String dayOfBirth, String commands) {
+        this();
+        this.name = name;
+        this.dayOfBirth = dayOfBirth;
+        this.commands = commands;
     }
 }
 

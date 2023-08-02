@@ -1,7 +1,5 @@
 package Model;
 
-import java.time.LocalDate;
-
 public abstract class Animals {
     static {
         Animals.number = 0;
@@ -42,7 +40,7 @@ public abstract class Animals {
 
     @Override
     public String toString() {
-        return ID;
+        return (ID +" "+ name +" "+ dayOfBirth +" "+ commands);
     }
 }
 

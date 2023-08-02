@@ -1,13 +1,16 @@
 package View;
 
 import Controller.Counter;
+import Controller.AnimalController;
 import Model.*;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class UserMenu {
 
     public void start() {
+        System.out.println("start");
         Scanner sc = new Scanner(System.in);
         Counter count = new Counter();
         boolean end = false;
@@ -15,7 +18,8 @@ public class UserMenu {
 
         while (!end) {
             System.out.println(
-                    "\n" + "1 - Список всех животных\n" +
+                    "\n" +  "Выберите действие:\n" +
+                            "1 - Список всех животных\n" +
                             "2 - Добавить новое животное\n" +
                             "3 - Корректировка существующих данных\n" +
                             "4 - Навыки животного\n" +
@@ -27,7 +31,11 @@ public class UserMenu {
                 case "1":
                     break;
                 case "2":
-                    String animal = animalChoose(animalTypeChoice());
+                    try {
+                        new AnimalController().createAnimal(animalChoose(animalTypeChoice()), newAnimalData());
+                    } catch (NullPointerException | IOException e) {
+                        System.out.println("Введенные данные некорректны" + e.getMessage());
+                    }
                     break;
                 case "3":
                     break;
@@ -42,6 +50,7 @@ public class UserMenu {
     }
 
     private AnimalType animalTypeChoice() {
+        AnimalType type = null;
         Scanner sc = new Scanner(System.in);
         System.out.println("Какое животное добавляем: \n" +
                 "1 - Добавить домашнее животное.\n" +
@@ -53,11 +62,12 @@ public class UserMenu {
         choice = sc.next();
         switch (choice) {
             case "1", "2":
-                return AnimalType.getType(choice);
+                type = AnimalType.getType(choice);
+                break;
             case "0":
                 start();
         }
-                return null;
+        return type;
     }
 
     private String animalChoose(AnimalType type) {
@@ -69,7 +79,7 @@ public class UserMenu {
                         "1 - Добавить кошку.\n" +
                         "2 - Добавить собаку.\n" +
                         "3 - Добавить хомяка.\n" +
-                        "0 - Возврат в предыдущее меню. )");
+                        "0 - Возврат в предыдущее меню. ");
                 choice = sc.next();
                 switch (choice) {
                     case "1":
@@ -78,6 +88,8 @@ public class UserMenu {
                         return "dog";
                     case "3":
                         return "hamster";
+                    case "0":
+                        animalTypeChoice();
                 }
             }
             case PACK -> {
@@ -85,7 +97,7 @@ public class UserMenu {
                         "1 - Добавить верблюда.\n" +
                         "2 - Добавить осла.\n" +
                         "3 - Добавить лошадь.\n" +
-                        "0 - Возврат в предыдущее меню. )");
+                        "0 - Возврат в предыдущее меню. ");
                 choice = sc.next();
                 switch (choice) {
                     case "1":
@@ -94,9 +106,23 @@ public class UserMenu {
                         return "donkey";
                     case "3":
                         return "horse";
+                    case "0":
+                        animalTypeChoice();
                 }
             }
         }
         return null;
+    }
+
+    private String[] newAnimalData() {
+        Scanner sc = new Scanner(System.in);
+        String[] animalData = new String[3];
+        System.out.print("Введите имя животного: \n> ");
+        animalData[0] = sc.nextLine();
+        System.out.print("Введите дату рождения животного(в формате гггг-мм-дд): \n> ");
+        animalData[1] = sc.nextLine();
+        System.out.print("Введите через запятую команды, которые знает животное: \n> ");
+        animalData[2] = sc.nextLine();
+        return animalData;
     }
 }

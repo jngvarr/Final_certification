@@ -2,13 +2,13 @@ package Controller;
 
 import Model.*;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.io.IOException;
 
-public class AnimalController<T> {
-    public void createAnimal(String type, String[] data) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        Animals animal;
+public class AnimalController {
+
+
+    public void createAnimal(String type, String[] data) throws IOException {
+        Animals animal = null;
         switch (type) {
             case "cat":
                 animal = new Cats(data[0], data[1], data[2]);
@@ -22,11 +22,13 @@ public class AnimalController<T> {
                 animal = new Camels(data[0], data[1], data[2]);
                 break;
             case "donkey":
-                animal = new Donkeys(data[0],data[1], data[2]);
+                animal = new Donkeys(data[0], data[1], data[2]);
                 break;
             case "horse":
-                animal = new Horses(data[0], data[1, data[2]);
+                animal = new Horses(data[0], data[1], data[2]);
         }
+        new Counter().add();
+        new HomeAnimalRegistry().add(animal);
 
     }
 
