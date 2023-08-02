@@ -1,15 +1,6 @@
 package Model;
 
-public abstract class Pet extends Animals {
-
-
-    public Pet() {
-        this.ID = super.ID + "-H";
-    }
-
-}
-
-enum PetType {
+public enum PetType {
     D, // dogs - вьючные
     C, // cats - кошки
     H; // hamsters - хомяки

@@ -1,13 +1,6 @@
 package Model;
 
-public abstract class PackAnimals extends Animals {
-
-    public PackAnimals() {
-        ID = ID + "-P";
-    }
-}
-
-enum PackAnimalType {
+public enum PackAnimalType {
     H, // horses - лошади
     C, // camels - верблюды
     D; // donkeys - ослы

@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.Animals;
+
 public class Counter implements AutoCloseable {
     static int animalCount;
 
@@ -14,5 +16,14 @@ public class Counter implements AutoCloseable {
     @Override
     public void close() throws Exception {
         System.out.println("Counter closed");
+    }
+
+    public static class AnimalController {
+        public static void addNewAnimal(Animals animal) {
+
+
+        }
+
+
     }
 }

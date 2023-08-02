@@ -1,9 +1,11 @@
 import Model.*;
 
+import java.time.LocalDate;
+
 public class Main {
     public static void main(String[] args) {
 
-        Cats cat = new Cats();
+        Cats cat = new Cats("Мурка", "2022-10-10", "взять");
         Dogs dog = new Dogs();
         Hamsters hamster = new Hamsters();
         Camels camel = new Camels();
