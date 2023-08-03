@@ -19,13 +19,13 @@ public class UserMenu {
         while (!end) {
             System.out.println(
                     "\n" + "Выберите действие:\n" +
-                            "1 - Список всех животных\n" +
-                            "2 - Добавить новое животное\n" +
-                            "3 - Корректировка существующих данных\n" +
-                            "4 - Навыки животного\n" +
-                            "5 - Дрессировка\n" +
-                            "6 - Удалить запись\n" +
-                            "0 - Выйти");
+                            "1 - Список всех животных.\n" +
+                            "2 - Добавить новое животное.\n" +
+                            "3 - Корректировка существующих данных.\n" +
+                            "4 - Посмотреть список команд, которые умеет выполнять животное.\n" +
+                            "5 - Дрессировка.\n" +
+                            "6 - Удалить запись.\n" +
+                            "0 - Выйти.");
             String choice = sc.next();
             switch (choice) {
                 case "1":
@@ -37,9 +37,11 @@ public class UserMenu {
                     break;
                 case "3": animalController.updateAnimalData();
                     break;
-                case "4":
+                case "4":animalController.animalsCommands();
                     break;
-                case "5":
+                case "5":animalController.training();
+                    break;
+                    case "6":animalController.deleteAnimal();
                     break;
                 case "0":
                     end = true;
