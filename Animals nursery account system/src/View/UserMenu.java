@@ -1,24 +1,24 @@
 package View;
 
-import Controller.Counter;
-import Controller.AnimalController;
+import Controller.*;
 import Model.*;
+
 
 import java.io.IOException;
 import java.util.Scanner;
 
 public class UserMenu {
 
-    public void start() {
-        System.out.println("start");
+    public void start() throws IOException {
         Scanner sc = new Scanner(System.in);
-        Counter count = new Counter();
+        AnimalController animalController = new AnimalController();
+        RegistryController homeAnimalRegistry = new RegistryController();
+
         boolean end = false;
-//        int choice;
 
         while (!end) {
             System.out.println(
-                    "\n" +  "Выберите действие:\n" +
+                    "\n" + "Выберите действие:\n" +
                             "1 - Список всех животных\n" +
                             "2 - Добавить новое животное\n" +
                             "3 - Корректировка существующих данных\n" +
@@ -29,27 +29,26 @@ public class UserMenu {
             String choice = sc.next();
             switch (choice) {
                 case "1":
+                    animalController.getAllAnimals();
                     break;
                 case "2":
-                    try {
-                        new AnimalController().createAnimal(animalChoose(animalTypeChoice()), newAnimalData());
-                    } catch (NullPointerException | IOException e) {
-                        System.out.println("Введенные данные некорректны" + e.getMessage());
-                    }
+                    homeAnimalRegistry.setID();
+                    animalController.createAnimal(animalChoose(animalTypeChoice()), animalController.newAnimalData());
                     break;
-                case "3":
+                case "3": animalController.updateAnimalData();
                     break;
                 case "4":
                     break;
                 case "5":
                     break;
                 case "0":
-                    break;
+                    end = true;
             }
         }
+
     }
 
-    private AnimalType animalTypeChoice() {
+    private AnimalType animalTypeChoice() throws IOException {
         AnimalType type = null;
         Scanner sc = new Scanner(System.in);
         System.out.println("Какое животное добавляем: \n" +
@@ -70,7 +69,7 @@ public class UserMenu {
         return type;
     }
 
-    private String animalChoose(AnimalType type) {
+    private String animalChoose(AnimalType type) throws IOException {
         Scanner sc = new Scanner(System.in);
         String choice;
         switch (type) {
@@ -103,7 +102,6 @@ public class UserMenu {
                     case "1":
                         return "camel";
                     case "2":
-                        return "donkey";
                     case "3":
                         return "horse";
                     case "0":
@@ -112,17 +110,5 @@ public class UserMenu {
             }
         }
         return null;
-    }
-
-    private String[] newAnimalData() {
-        Scanner sc = new Scanner(System.in);
-        String[] animalData = new String[3];
-        System.out.print("Введите имя животного: \n> ");
-        animalData[0] = sc.nextLine();
-        System.out.print("Введите дату рождения животного(в формате гггг-мм-дд): \n> ");
-        animalData[1] = sc.nextLine();
-        System.out.print("Введите через запятую команды, которые знает животное: \n> ");
-        animalData[2] = sc.nextLine();
-        return animalData;
     }
 }

@@ -14,9 +14,10 @@ public abstract class Animals {
     public Animals() {
         this.ID = String.format("#%s", ++Animals.number);
     }
+
     public Animals(String name, String dayOfBirth, String commands) {
         this.ID = String.format("#%s", ++Animals.number);
-        this.name=name;
+        this.name = name;
         this.dayOfBirth = dayOfBirth;
         this.commands = commands;
     }
@@ -30,6 +31,14 @@ public abstract class Animals {
         return name;
     }
 
+    public static int getNumber() {
+        return Animals.number;
+    }
+
+    public static void setNumber(int number) {
+        Animals.number = number;
+    }
+
     public String getDayOfBirth() {
         return dayOfBirth;
     }
@@ -40,7 +49,7 @@ public abstract class Animals {
 
     @Override
     public String toString() {
-        return (ID +" "+ name +" "+ dayOfBirth +" "+ commands);
+        return (ID + " " + name + " " + dayOfBirth + " " + commands);
     }
 }
 
