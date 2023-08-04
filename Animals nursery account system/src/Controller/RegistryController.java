@@ -7,11 +7,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class RegistryController {
-    String path = "D:\\Загрузки\\gb\\java\\Exceptions\\Final_certification\\Animals nursery account system\\src\\Sources";
+    String path = System.getProperty("user.dir") + "\\src\\Sources";
+    String fileName = "\\db.csv";
     boolean bdIsEmpty = false;
 
     public void updateDB(String[] data, int noteNumber) throws IOException {
-        List<String[]> list = readDataFromFile(path + "\\db.csv");
+        List<String[]> list = readDataFromFile(path + fileName);
         list.get(noteNumber)[2] = data[0];
         list.get(noteNumber)[3] = data[1];
         list.get(noteNumber)[4] = data[2];
@@ -19,7 +20,7 @@ public class RegistryController {
     }
 
     public void deleteAnimalData(String[] data, int noteNumber) throws IOException {
-        List<String[]> list = readDataFromFile(path + "\\db.csv");
+        List<String[]> list = readDataFromFile(path + fileName);
         list.get(noteNumber)[1] = data[0];
         list.get(noteNumber)[2] = data[1];
         list.get(noteNumber)[3] = data[2];
@@ -28,7 +29,7 @@ public class RegistryController {
     }
 
     public void commandsList(int commandsNumber) {
-        List<String[]> list = readDataFromFile(path + "\\db.csv");
+        List<String[]> list = readDataFromFile(path + fileName);
         String[] animalData = list.get(commandsNumber);
         String[] commands = animalData[4].trim().split(",");
         System.out.println(animalData[2] + "(ID = " + animalData[1] + ") умеет выполнять команды: ");
@@ -39,24 +40,29 @@ public class RegistryController {
     }
 
     public void training(int commandsNumber, String newCommand) throws IOException {
-        List<String[]> list = readDataFromFile(path + "\\db.csv");
+        List<String[]> list = readDataFromFile(path + fileName);
         list.get(commandsNumber)[4] = list.get(commandsNumber)[4] + ", " + newCommand;
         writeDataToFile(list, path);
     }
-
     public void setID() {
         int lastNum = 0;
-        List<String[]> list = readDataFromFile(path + "\\db.csv");
+        List<String[]> list = readDataFromFile(path + fileName);
         if (!list.isEmpty()) lastNum = Integer.parseInt(list.get(list.size() - 1)[0]);
-//        if (Animals.getNumber() > lastNum)
         Animals.setNumber(lastNum);
     }
 
     public void add(Animals animal) throws IOException {
-        OutputStream outStream = new FileOutputStream(path + "\\db.csv", true);
-        List<String[]> list = readDataFromFile(path + "\\db.csv");
+        OutputStream outStream = new FileOutputStream(path + fileName, true);
+        List<String[]> list = readDataFromFile(path + fileName);
         if (isBdIsEmpty(list)) outStream.write("N;ID;Name;Day_of_birth;Commands\n".getBytes(StandardCharsets.UTF_8));
-        outStream.write((animal.getID().substring(animal.getID().indexOf("#") , animal.getID().indexOf("-")), animal.getID(), animal.getName(), animal.getDayOfBirth(), animal.getCommands()).getBytes(StandardCharsets.UTF_8));
+        outStream.write(
+                (animal.getID().substring(animal.getID().indexOf("#")+1, animal.getID().indexOf("-")) + ";"
+                        + animal.getID() + ";"
+                        + animal.getName() + ";"
+                        + animal.getDayOfBirth() + ";"
+                        + animal.getCommands() + "\n")
+                        .getBytes(StandardCharsets.UTF_8));
+        outStream.close();
     }
 
     public boolean isBdIsEmpty(List<String[]> list) {
@@ -79,7 +85,7 @@ public class RegistryController {
     }
 
     public void writeDataToFile(List<String[]> animalList, String path) throws IOException {
-        OutputStream outStream = new FileOutputStream(path + "\\db.csv");
+        OutputStream outStream = new FileOutputStream(path + fileName);
         if (bdIsEmpty) {
             String titles = "N;ID;Name;Day_of_birth;Commands\n";
             outStream.write(titles.getBytes(StandardCharsets.UTF_8));

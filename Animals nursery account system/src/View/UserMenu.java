@@ -12,7 +12,7 @@ public class UserMenu {
     public void start() throws IOException {
         Scanner sc = new Scanner(System.in);
         AnimalController animalController = new AnimalController();
-        RegistryController homeAnimalRegistry = new RegistryController();
+        RegistryController registryController = new RegistryController();
 
         boolean end = false;
 
@@ -32,7 +32,7 @@ public class UserMenu {
                     animalController.getAllAnimals();
                     break;
                 case "2":
-                    homeAnimalRegistry.setID();
+                    registryController.setID();
                     animalController.createAnimal(animalChoose(animalTypeChoice()), animalController.newAnimalData());
                     break;
                 case "3": animalController.updateAnimalData();
@@ -41,7 +41,7 @@ public class UserMenu {
                     break;
                 case "5":animalController.training();
                     break;
-                    case "6":animalController.deleteAnimal();
+                case "6":animalController.deleteAnimal();
                     break;
                 case "0":
                     end = true;

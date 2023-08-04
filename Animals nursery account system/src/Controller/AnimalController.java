@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AnimalController {
-    RegistryController homeAnimalRegistry = new RegistryController();
+    RegistryController registryController = new RegistryController();
+    Validator validator = new Validator();
 
     public void createAnimal(String type, String[] data) throws IOException {
         Animals animal = null;
@@ -30,8 +31,7 @@ public class AnimalController {
                 animal = new Horses(data[0], data[1], data[2]);
         }
         new Counter().add();
-        homeAnimalRegistry.add(animal);
-
+        registryController.add(animal);
     }
 
     public void updateAnimalData() throws IOException {
@@ -39,24 +39,27 @@ public class AnimalController {
         getAllAnimals();
         System.out.println("Введите номер записи для внесения изменений.");
         int noteNum = Integer.parseInt(sc.next());
+        if (validator.signIsNotDeleted(noteNum)) {
         String[] newData = newAnimalData();
-        homeAnimalRegistry.updateDB(newData, noteNum);
+        registryController.updateDB(newData, noteNum);
         System.out.println("Данные были изменены.");
-    }
+    }}
 
     public void deleteAnimal() throws IOException {
         Scanner sc = new Scanner(System.in);
         getAllAnimals();
         System.out.println("Введите номер записи для удаления.");
         int deleteNum = Integer.parseInt(sc.next());
-        String[] deleted = new String[]{"This", "animal", "was", "deleted."};
-        homeAnimalRegistry.deleteAnimalData(deleted, deleteNum);
-        System.out.println("Животное удалено.");
+        if (validator.signIsNotDeleted(deleteNum)) {
+            String[] deleted = new String[]{"This", "animal", "was", "deleted."};
+            registryController.deleteAnimalData(deleted, deleteNum);
+            System.out.println("Животное удалено.");
+        }
     }
 
     public void getAllAnimals() {
         List<String[]> animals;
-        animals = homeAnimalRegistry.readDataFromFile("D:\\Загрузки\\gb\\java\\Exceptions\\Final_certification\\Animals nursery account system\\src\\Sources\\db.csv");
+        animals = registryController.readDataFromFile(registryController.path + registryController.fileName);
         System.out.println();
         if (animals.isEmpty()) System.out.println("Список пуст.");
         for (String[] strings : animals) {
@@ -69,17 +72,20 @@ public class AnimalController {
         getAllAnimals();
         System.out.println("Введите номер записи для просмотра команд.");
         int commandsNum = Integer.parseInt(sc.next());
-        homeAnimalRegistry.commandsList(commandsNum);
+        if (validator.signIsNotDeleted(commandsNum)) registryController.commandsList(commandsNum);
     }
+
     public void training() throws IOException {
         Scanner sc = new Scanner(System.in);
         getAllAnimals();
         System.out.println("Кого тренируем? Введите номер записи.");
         int trainingNum = Integer.parseInt(sc.next());
-        System.out.println("Введите команду для тренировки");
-        String newCommand = sc.next();
-        homeAnimalRegistry.training(trainingNum, newCommand );
-        System.out.println("Команда разучена!");
+        if (validator.signIsNotDeleted(trainingNum)) {
+            System.out.println("Введите команду для тренировки");
+            String newCommand = sc.next();
+            registryController.training(trainingNum, newCommand);
+            System.out.println("Команда разучена!");
+        }
     }
 
     public String[] newAnimalData() {
