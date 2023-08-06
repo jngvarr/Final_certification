@@ -107,7 +107,7 @@ _**Необходимо организовать систему учета дл�
     CREATE TABLE dogs 
     (
         Id INT AUTO_INCREMENT PRIMARY KEY, 
-        ame VARCHAR(20),day_of_birth DATE,
+        Name VARCHAR(20),day_of_birth DATE,
         commands VARCHAR(50),
         friends_name VARCHAR (20),
         Foreign KEY (friends_name) REFERENCES home_animals (friends_name) ON DELETE CASCADE ON UPDATE CASCADE
