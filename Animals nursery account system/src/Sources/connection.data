@@ -1,0 +1,3 @@
+String url = jdbc:mysql://localhost:3306/human_friends?serverTimezone=Europe/Moscow&useSSL=false
+String user = root
+String password = Ihu378

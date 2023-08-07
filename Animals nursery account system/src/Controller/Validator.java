@@ -16,4 +16,12 @@ public class Validator {
             return false;
         }
     }
+
+    public boolean dateFormatValidation(String date) {
+        if (date.matches("\\d{4}-\\d{2}-\\d{2}")) return true;
+        else {
+            System.out.print("Формат даты не верен.\n> ");
+            return false;
+        }
+    }
 }

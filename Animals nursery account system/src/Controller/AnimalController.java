@@ -40,10 +40,11 @@ public class AnimalController {
         System.out.println("Введите номер записи для внесения изменений.");
         int noteNum = Integer.parseInt(sc.next());
         if (validator.signIsNotDeleted(noteNum)) {
-        String[] newData = newAnimalData();
-        registryController.updateDB(newData, noteNum);
-        System.out.println("Данные были изменены.");
-    }}
+            String[] newData = newAnimalData();
+            registryController.updateDB(newData, noteNum);
+            System.out.println("Данные были изменены.");
+        }
+    }
 
     public void deleteAnimal() throws IOException {
         Scanner sc = new Scanner(System.in);
@@ -94,7 +95,7 @@ public class AnimalController {
         System.out.print("Введите имя животного: \n> ");
         animalData[0] = sc.nextLine();
         System.out.print("Введите дату рождения животного(в формате гггг-мм-дд): \n> ");
-        animalData[1] = sc.nextLine();
+        while (!validator.dateFormatValidation(animalData[1] = sc.nextLine())) {}
         System.out.print("Введите через запятую команды, которые знает животное: \n> ");
         animalData[2] = sc.nextLine();
         return animalData;
